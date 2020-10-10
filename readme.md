@@ -15,6 +15,7 @@
     * notatka o wydatku
     * możliwość przechowywania paragonów/faktur
 * rejestracja dochodów
+    * crud
 * powiadomienia o zdarzeniach
     * cykliczne
         * podsumowanie wydaktów - raport
