@@ -6,60 +6,64 @@ import org.springframework.stereotype.Service;
 import pl.sda.moneymanager.domain.Income;
 import pl.sda.moneymanager.repository.IncomeRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
+@Slf4j
 public class IncomeService {
 
-    private IncomeRepository incomeRepository;
+    private final IncomeRepository incomeRepository;
 
-    public IncomeService (final IncomeRepository incomeRepository){
-        this.incomeRepository=incomeRepository;
+    public IncomeService(final IncomeRepository incomeRepository) {
+        this.incomeRepository = incomeRepository;
     }
 
-    public List<Income> readIncomeWithQueryParams(int pageNumber, int pageSize ){
-        log.info("reading incomes with query params, page number = [{}], page = [{}] ", pageNumber, pageSize);
-        var result =incomeRepository.findAll(PageRequest.of(pageNumber,pageSize)).getContent();
-        log.info("result from db: {}", result);
+    public List<Income> readIncomesWithQueryParams(int pageNumber, int pageSize) {
+        log.info("reading incomes with query params, page number = [{}], page size = [{}]", pageNumber,
+            pageSize);
 
+        var result = incomeRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
+
+        log.info("result from db: {}", result);
         return result;
     }
 
-    public List<Income> readAllIncomes(){
+    public List<Income> readAllIncomes() {
         log.info("reading all incomes");
-        var result =incomeRepository.findAll();
-        log.info("number of read elements [{}]", result.size());
+
+        var result = incomeRepository.findAll();
+
+        log.info("number of read elements: [{}]", result.size());
         log.debug("result : {}", result);
         return result;
     }
 
-    public Optional<Income> findIncomeById(long id){
-        log.info("reading incomes by id: [{}]", id);
+    public Optional<Income> findIncomeById(Long id) {
+        log.info("find income by id: [{}]", id);
 
         var result = incomeRepository.findById(id);
-        log.info("result: [{}] ", result);
+        log.info("result: [{}]", result);
         return result;
     }
 
-    public Income crateIncome( Income toSave){
-        var saved = incomeRepository.save(toSave);
-        log.info("saved object: [{}]", saved);
-        return saved;
-    }
-
-    public boolean deleteIncomeById(Long id){
-        log.info("deleting by id [{}]", id);
+    public boolean deleteIncomeById(Long id) {
+        log.info("deleting by id: [{}]", id);
         incomeRepository.deleteById(id);
         return true;
     }
 
-    public  Income updateIncome(Income toUpdate){
+    public Income createIncome(Income toSave) {
+        var saved = incomeRepository.save(toSave);
 
-        var update = incomeRepository.save(toUpdate);
-        log.info("update object: [{}]", toUpdate);
-        return update;
+        log.info("saved object: [{}]", saved);
+        return saved;
+    }
+
+    public Income updateIncome(Income toUpdate) {
+        var updated = incomeRepository.save(toUpdate);
+
+        log.info("updated object: [{}]", updated);
+        return updated;
     }
 }
