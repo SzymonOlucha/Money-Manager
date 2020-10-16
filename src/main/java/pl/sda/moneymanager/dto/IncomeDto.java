@@ -7,7 +7,7 @@ import pl.sda.moneymanager.domain.Person;
 
 import java.time.LocalDateTime;
 
-@Value
+
 @Builder
 public class IncomeDto  {
     private Long id;

@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 public class IncomeService {
 
     private final IncomeRepository incomeRepository;
-    private IncomeConverter incomeConverter;
+    private final IncomeConverter incomeConverter;
 
-    public IncomeService(final IncomeRepository incomeRepository) {
+    public IncomeService(final IncomeRepository incomeRepository, IncomeConverter incomeConverter) {
         this.incomeRepository = incomeRepository;
         this.incomeConverter= incomeConverter;
     }
