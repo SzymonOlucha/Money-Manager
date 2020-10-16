@@ -3,20 +3,26 @@ package pl.sda.moneymanager.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.sda.moneymanager.conventer.IncomeConverter;
 import pl.sda.moneymanager.domain.Income;
+import pl.sda.moneymanager.dto.IncomeDto;
 import pl.sda.moneymanager.repository.IncomeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class IncomeService {
 
     private final IncomeRepository incomeRepository;
+    private IncomeConverter incomeConverter;
 
     public IncomeService(final IncomeRepository incomeRepository) {
         this.incomeRepository = incomeRepository;
+        this.incomeConverter= incomeConverter;
     }
 
     public List<Income> readIncomesWithQueryParams(int pageNumber, int pageSize) {
@@ -29,10 +35,14 @@ public class IncomeService {
         return result;
     }
 
-    public List<Income> readAllIncomes() {
+    public List<IncomeDto> readAllIncomes() {
         log.info("reading all incomes");
-
-        var result = incomeRepository.findAll();
+        var dataFromRepo = new ArrayList<Income>();
+        incomeRepository.findAll().forEach(dataFromRepo::add);
+        var result= dataFromRepo
+                .stream()
+                .map(incomeConverter::fromEntityToDto)
+                .collect(Collectors.toList());
 
         log.info("number of read elements: [{}]", result.size());
         log.debug("result : {}", result);

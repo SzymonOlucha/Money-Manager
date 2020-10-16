@@ -30,7 +30,7 @@ public class IncomeRestController {
     //ResponseEntity = status code + payload
     ResponseEntity<List<Income>> allIncomes(){
         log.info("reading all incomes");
-        return new ResponseEntity<>( incomeService.readAllIncomes(), HttpStatus.OK);
+        return new ResponseEntity( incomeService.readAllIncomes(), HttpStatus.OK);
     }
 
    @GetMapping("/incomes/{id}")
