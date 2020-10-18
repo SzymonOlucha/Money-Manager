@@ -3,20 +3,26 @@ package pl.sda.moneymanager.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.sda.moneymanager.converter.IncomesConverter;
 import pl.sda.moneymanager.domain.Income;
+import pl.sda.moneymanager.dto.IncomesDto;
 import pl.sda.moneymanager.repository.IncomeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class IncomeService {
 
     private final IncomeRepository incomeRepository;
+    private final IncomesConverter incomesConverter;
 
-    public IncomeService(final IncomeRepository incomeRepository) {
+    public IncomeService(IncomeRepository incomeRepository, IncomesConverter incomesConverter) {
         this.incomeRepository = incomeRepository;
+        this.incomesConverter = incomesConverter;
     }
 
     public List<Income> readIncomesWithQueryParams(int pageNumber, int pageSize) {
@@ -29,11 +35,17 @@ public class IncomeService {
         return result;
     }
 
-    public List<Income> readAllIncomes() {
+    public List<IncomesDto> readAllIncomes() {
         log.info("reading all incomes");
+        var dataFromRepo = new ArrayList<Income>();
+        //var result = incomeRepository.findAll();
+        incomeRepository
+                .findAll()
+                .forEach(dataFromRepo::add);
 
-        var result = incomeRepository.findAll();
-
+        var result =dataFromRepo.stream()
+               .map(incomesConverter::fromEntityToDto)
+               .collect(Collectors.toList());
         log.info("number of read elements: [{}]", result.size());
         log.debug("result : {}", result);
         return result;

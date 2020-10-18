@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sda.moneymanager.domain.Income;
+import pl.sda.moneymanager.dto.IncomesDto;
 import pl.sda.moneymanager.exception.MoneyGenericException;
 import pl.sda.moneymanager.service.IncomeService;
 
@@ -27,10 +28,10 @@ public class IncomeRestController {
     // /rest/incomes
     @GetMapping("/incomes")
     // ResponseEntity = status code + payload
-    ResponseEntity<List<Income>> allIncomes() {
+    ResponseEntity<List<IncomesDto>> allIncomes() {
         log.info("reading all incomes");
 
-        return new ResponseEntity<>(incomeService.readAllIncomes(), HttpStatus.OK);
+        return new ResponseEntity(incomeService.readAllIncomes(), HttpStatus.OK);
     }
 
     // /rest/incomes/1
