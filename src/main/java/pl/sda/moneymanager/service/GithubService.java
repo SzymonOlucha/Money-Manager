@@ -29,7 +29,7 @@ public class GithubService {
 //        List<String>.class
 //        List<GithubRepoDto>.class
         var requestResult = restTemplate.getForObject(myReposUrl, GithubRepoDto[].class);
-        return Arrays.asList(requestResult);
+        return Arrays.asList(requestResult != null ? requestResult : new GithubRepoDto[]{} );
     }
 
 
