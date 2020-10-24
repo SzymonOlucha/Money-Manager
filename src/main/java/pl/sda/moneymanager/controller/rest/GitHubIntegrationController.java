@@ -1,6 +1,8 @@
 package pl.sda.moneymanager.controller.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -9,7 +11,7 @@ import pl.sda.moneymanager.service.GithubService;
 
 import java.util.Arrays;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/github-int")
 public class GitHubIntegrationController {
@@ -22,7 +24,14 @@ public class GitHubIntegrationController {
 
     @GetMapping("/my-repos")
     public List<GithubRepoDto> myRepos() {
-
+        log.info("my repos");
         return githubService.allUserRepos();
+    }
+
+    @GetMapping("/repos/{userName}")
+    public List<GithubRepoDto> userRepos(@PathVariable("userName") String userName){
+        log.info("user repos [{}]", userName);
+
+        return githubService.allReposOfGivenUser(userName);
     }
 }
