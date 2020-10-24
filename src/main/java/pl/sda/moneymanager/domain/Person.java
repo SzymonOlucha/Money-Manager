@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,5 +17,6 @@ import javax.persistence.Entity;
 public class Person extends BaseEntity {
     private String name;
     private String surname;
+    @Enumerated(EnumType.STRING)
     private Sex sex;
 }
