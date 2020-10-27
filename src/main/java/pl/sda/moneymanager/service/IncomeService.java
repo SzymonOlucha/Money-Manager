@@ -1,10 +1,12 @@
 package pl.sda.moneymanager.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.sda.moneymanager.converter.IncomeConverter;
 import pl.sda.moneymanager.domain.Income;
+import pl.sda.moneymanager.domain.Person;
 import pl.sda.moneymanager.dto.IncomeDto;
 import pl.sda.moneymanager.repository.IncomeRepository;
 
