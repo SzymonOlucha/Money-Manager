@@ -1,8 +1,6 @@
-insert into Person (sex, surname, name)
-values('MALE', 'P.', 'Mariusz');
-
-insert into income_source (source_name)
-values ('SDA');
-
-insert into income(income_value_in_cent, person_id, income_source_id)
-values(1000, 1, 1);
+insert into Person (SEX, SURNAME, NAME, CREATION_TIMESTAMP, UPDATE_TIMESTAMP)
+values('MALE', 'P.', 'Mariusz', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into income_source (SOURCE_NAME, CREATION_TIMESTAMP, UPDATE_TIMESTAMP)
+values ('SDA', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into income(INCOME_VALUE_IN_CENT, PERSON_ID, INCOME_SOURCE_ID, CREATION_TIMESTAMP, UPDATE_TIMESTAMP)
+values(1000, 1, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
