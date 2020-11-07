@@ -26,6 +26,9 @@
         <td th:text="${income.person.name}">Maniek</td>
         <td th:text="${income.person.surname}">P.</td>
         <td th:text="${income.incomeSource.sourceName}">SDA</td>
+        <td><a href="#" >Edit incomes</a></td>
+        <td><a href="#" th:href="@{'/incomes/delete/'+${income.id}}">Delete incomes</a></td>
+
     </tr>
     </tbody>
 </table>
