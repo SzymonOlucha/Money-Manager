@@ -26,4 +26,6 @@ public class IncomeController {
 
         return "incomes/all-incomes";
     }
+
+    
 }

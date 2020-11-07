@@ -9,6 +9,7 @@
     <thead>
     <tr>
         <td>ID</td>
+        <td>Income value in cents</td>
         <td>Creation timestamp</td>
         <td>Update timestamp</td>
         <td>Person name</td>
@@ -19,8 +20,9 @@
     <tbody>
     <tr th:each="income : ${allIncomes}">
         <td th:text="${income.id}">1</td>
-        <td th:text="${income.creationTimestamp}">2020</td>
-        <td th:text="${income.updateTimestamp}">2020</td>
+        <td th:text="${income.incomeValueInCent}">1_000_000</td>
+        <td th:text="${#temporals.format(income.creationTimestamp,'dd-MM-yyyy')}">2020</td>
+        <td th:text="${#temporals.format(income.updateTimestamp,'dd-MM-yyyy')}">2020</td>
         <td th:text="${income.person.name}">Maniek</td>
         <td th:text="${income.person.surname}">P.</td>
         <td th:text="${income.incomeSource.sourceName}">SDA</td>
