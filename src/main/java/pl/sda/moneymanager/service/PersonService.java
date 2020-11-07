@@ -41,10 +41,28 @@ public class PersonService {
         return convertPerson(result);
     }
 
+    public Optional<PersonDto> findPersonById(Long id){
+        log.info("find person by id: [{}]",id);
+        Optional<Person> result = personRepository.findById(id);
+        return result.map(personConverter::fromEntityToDto);
+    }
 
-    public List<PersonDto> findPersonByName(String name, String surname, Sex sex){
+    public void deletePersonById(Long id){
+        personRepository.deleteById(id);
+        log.info("delete person by id: [{}]", id);
+    }
 
-        Example <Person> personExample = Example.of(new Person(name, surname, sex));
+    public Person createPerson(Person toSavePerson){
+        log.info("save person");
+        return personRepository.save(toSavePerson);
+    }
+
+    public Person updatePerson(Person updatePerson){
+        return personRepository.save(updatePerson);
+    }
+    public List<PersonDto> findPersonByName(Person person){
+
+        Example <Person> personExample = Example.of(person);
         List<Person> result = personRepository.findAll(personExample);
         return convertPerson(result);
     }
