@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@Profile("nbp")
+@Profile({"nbp", "exchange"})
 public class MoneyExchangerService implements CommandLineRunner {
-
-
     @Override
     public void run(String... args) throws Exception {
         log.info("money exchanger service created");

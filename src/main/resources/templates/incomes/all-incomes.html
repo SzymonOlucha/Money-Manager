@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All incomes</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Creation timestamp</td>
+        <td>Update timestamp</td>
+        <td>Person name</td>
+        <td>Person surname</td>
+        <td>Source name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="income : ${allIncomes}">
+        <td th:text="${income.id}">1</td>
+        <td th:text="${income.creationTimestamp}">2020</td>
+        <td th:text="${income.updateTimestamp}">2020</td>
+        <td th:text="${income.person.name}">Maniek</td>
+        <td th:text="${income.person.surname}">P.</td>
+        <td th:text="${income.incomeSource.sourceName}">SDA</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
