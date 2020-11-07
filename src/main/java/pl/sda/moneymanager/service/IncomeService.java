@@ -72,10 +72,13 @@ public class IncomeService {
         return saved;
     }
 
-    public Income updateIncome(Income toUpdate) {
-        var updated = incomeRepository.save(toUpdate);
+
+
+    public IncomeDto saveIncome(IncomeDto dtoToSave) {
+        var entityToSave = incomeConverter.fromDtoToEntity(dtoToSave);
+        var updated = incomeRepository.save(entityToSave);
 
         log.info("updated object: [{}]", updated);
-        return updated;
+        return incomeConverter.fromEntityToDto(updated);
     }
 }

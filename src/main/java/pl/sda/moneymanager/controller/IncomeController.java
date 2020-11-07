@@ -3,10 +3,13 @@ package pl.sda.moneymanager.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.sda.moneymanager.domain.Income;
+import pl.sda.moneymanager.dto.IncomeDto;
+import pl.sda.moneymanager.dto.IncomeSourceDto;
 import pl.sda.moneymanager.service.IncomeService;
+
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -34,6 +37,28 @@ public class IncomeController {
         log.info("deleting income by id :[{}]", incomeID);
         incomeService.deleteIncomeById(incomeID);
         return "redirect:/incomes";
+    }
+
+    @GetMapping("/add-form")
+    public String showForm(){
+        log.info("showing form");
+
+        return "/incomes/add-form";
+    }
+
+    @PostMapping("/save")
+    public String save(IncomeDto incomeToSave){
+        log.info("saving income");
+        log.info("name=[{}]", incomeToSave);
+        incomeService.saveIncome(incomeToSave);
+        return "redirect:/incomes";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit( @PathVariable ("id") Long id, Model model){
+        Optional<IncomeDto> incomeDto = incomeService.findIncomeById(id);
+        model.addAttribute("income", incomeDto.orElseThrow());
+        return "incomes/add-form";
     }
 
     
