@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -18,9 +19,10 @@ import javax.persistence.ManyToOne;
 public class Income extends BaseEntity {
     private long incomeValueInCent;
 
-    @ManyToOne
+    // FIXME   - very ugly:)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private IncomeSource incomeSource;
 }
