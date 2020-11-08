@@ -68,12 +68,6 @@ public class IncomeController  {
 
     }
 
-    @ExceptionHandler(Exception.class)
-    public ModelAndView errorPage(Exception e){
-        log.warn("exception occurred", e);
-        ModelAndView result = new ModelAndView("error-page");
-        result.addObject(ERROR_DESC, e.getMessage());
-        return result;
-    }
+
 
 }
