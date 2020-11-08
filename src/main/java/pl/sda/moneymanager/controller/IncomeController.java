@@ -4,19 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.moneymanager.domain.Income;
+import org.springframework.web.servlet.ModelAndView;
 import pl.sda.moneymanager.dto.IncomeDto;
 import pl.sda.moneymanager.dto.IncomeSourceDto;
+import pl.sda.moneymanager.dto.PersonDto;
 import pl.sda.moneymanager.service.IncomeService;
 
-import java.util.Optional;
+import static pl.sda.moneymanager.controller.ControllersConstants.*;
 
 @Controller
 @Slf4j
 @RequestMapping("/incomes")
-public class IncomeController {
+public class IncomeController  {
 
-    private static final String ALL_INCOMES = "allIncomes";
+
     private final IncomeService incomeService;
 
     public IncomeController(IncomeService incomeService) {
@@ -31,35 +32,42 @@ public class IncomeController {
         return "incomes/all-incomes";
     }
 
-
+    // /delete/1
+    // /delete/2
+    // /delete/id
     @GetMapping("/delete/{id}")
-    public String deleteIncomeById(@PathVariable("id") Long incomeID){
-        log.info("deleting income by id :[{}]", incomeID);
-        incomeService.deleteIncomeById(incomeID);
+    public String deleteIncomeById(@PathVariable("id") Long incomeId) {
+        log.info("deleting income by id: [{}]", incomeId);
+        incomeService.deleteIncomeById(incomeId);
         return "redirect:/incomes";
     }
 
     @GetMapping("/add-form")
-    public String showForm(){
+    public String showForm(Model model) {
         log.info("showing form");
-
-        return "/incomes/add-form";
+        model.addAttribute(OPERATION, ADD_OPERATION);
+        var emptyIncome= new IncomeDto(0, new PersonDto(), new IncomeSourceDto());
+        model.addAttribute(INCOME, emptyIncome);
+        return "incomes/add-edit-form";
     }
 
+
     @PostMapping("/save")
-    public String save(IncomeDto incomeToSave){
-        log.info("saving income");
-        log.info("name=[{}]", incomeToSave);
+    public String save(IncomeDto incomeToSave) {
+        log.info("saving income = [{}]", incomeToSave);
         incomeService.saveIncome(incomeToSave);
         return "redirect:/incomes";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit( @PathVariable ("id") Long id, Model model){
-        Optional<IncomeDto> incomeDto = incomeService.findIncomeById(id);
-        model.addAttribute("income", incomeDto.orElseThrow());
-        return "incomes/add-form";
+    public String edit(@PathVariable("id") Long id, Model model) {
+        var incomeDto = incomeService.findIncomeById(id);
+        model.addAttribute(INCOME, incomeDto.orElseThrow());
+        model.addAttribute(OPERATION, EDIT_OPERATION);
+        return "incomes/add-edit-form";
+
     }
 
-    
+
+
 }

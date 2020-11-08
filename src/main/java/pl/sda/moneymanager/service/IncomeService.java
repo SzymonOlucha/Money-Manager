@@ -65,6 +65,7 @@ public class IncomeService {
         return true;
     }
 
+    // for test reasons
     public Income createIncome(Income toSave) {
         var saved = incomeRepository.save(toSave);
 
@@ -72,12 +73,13 @@ public class IncomeService {
         return saved;
     }
 
-
-
     public IncomeDto saveIncome(IncomeDto dtoToSave) {
         var entityToSave = incomeConverter.fromDtoToEntity(dtoToSave);
+        entityToSave.setId(dtoToSave.getId());
+        entityToSave.setCreationTimestamp(dtoToSave.getCreationTimestamp());
+        entityToSave.setUpdateTimestamp(dtoToSave.getUpdateTimestamp());
+        log.info("entity before saving [{}] ", entityToSave);
         var updated = incomeRepository.save(entityToSave);
-
         log.info("updated object: [{}]", updated);
         return incomeConverter.fromEntityToDto(updated);
     }

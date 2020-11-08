@@ -1,9 +1,6 @@
 package pl.sda.moneymanager.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 
@@ -12,6 +9,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString(callSuper = true)
 public class IncomeSource extends BaseEntity {
     private String sourceName;
 }
