@@ -18,6 +18,7 @@ public class GithubService {
     private static final String myReposUrl = String.format("https://api.github.com/users/{%s}/repos",
         REPO_USER);
 
+
     private final RestTemplate restTemplate;
     private final String API_KEY;
 
@@ -37,6 +38,7 @@ public class GithubService {
         log.info("getting all repos for user: [{}]", repoUser);
 
         Map<String, ?> params = Map.of(REPO_USER, repoUser);
+        log.info("[{}]", params);
 //        String[].class
 //        List.class
 //        List<String>.class

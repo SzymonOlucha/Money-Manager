@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 @Entity
 @Data
 public class LocalizationOfExpense extends BaseEntity {
-    private String street;
     private String nameCompany;
+    private String city;
+    private String street;
     private String postCode;
 }
