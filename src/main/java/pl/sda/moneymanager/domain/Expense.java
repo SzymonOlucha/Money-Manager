@@ -1,30 +1,32 @@
 package pl.sda.moneymanager.domain;
 
 ;
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@Builder
+@ToString(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Expense extends BaseEntity {
-    private float valueOfTheExpense;
+    private long  valueOfExpense;
 
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private  ExpenseCategory expenseCategory;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person owner;
 
-    @ManyToOne
-    private LocalizationOfExpense localizationOfExpense;
+    @ManyToOne (cascade = CascadeType.ALL)
+    private LocalizationOfExpense localization;
 
     private String note;
 
